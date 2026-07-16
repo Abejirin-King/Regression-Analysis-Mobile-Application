@@ -190,7 +190,7 @@ class _HomePageState extends State<HomePage> {
       const EdgeInsets.only(bottom:12),
       child:
       DropdownButtonFormField<String>(
-        value:value,
+        initialValue:value,
         decoration: InputDecoration(
           labelText:label,
           filled:true,
