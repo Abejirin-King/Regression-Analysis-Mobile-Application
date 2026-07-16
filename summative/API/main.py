@@ -1,6 +1,10 @@
+import pandas as pd
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
+from fastapi import UploadFile, File
+from fastapi import HTTPException
 
+from .retrain import retrain_model
 from .prediction import predict_exam_score
 from .schemas import StudentData
 
@@ -29,8 +33,25 @@ def home():
 
 @app.post("/predict")
 def predict(student: StudentData):
-    prediction = predict_exam_score(student.model_dump())
+    try:
+        prediction = predict_exam_score(student.model_dump())
 
-    return {
-        "predicted_exam_score": round(prediction, 2)
-    }
+        return {
+            "predicted_exam_score": round(prediction, 2)
+        }
+
+    except Exception as e:
+        raise HTTPException(
+            status_code=500,
+            detail=str(e)
+        )
+    
+@app.post("/retrain")
+async def retrain(file: UploadFile = File(...)):
+    """
+    Retrain the model using an uploaded CSV dataset.
+    """
+
+    dataframe = pd.read_csv(file.file)
+
+    return retrain_model(dataframe)

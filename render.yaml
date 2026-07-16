@@ -1,0 +1,10 @@
+services:
+  - type: web
+    name: student-performance-api
+    runtime: python
+
+    buildCommand: |
+      uv sync
+
+    startCommand: |
+      uv run uvicorn summative.API.main:app --host 0.0.0.0 --port $PORT
