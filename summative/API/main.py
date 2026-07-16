@@ -52,6 +52,22 @@ async def retrain(file: UploadFile = File(...)):
     Retrain the model using an uploaded CSV dataset.
     """
 
-    dataframe = pd.read_csv(file.file)
+    # Validate file type
+    if not file.filename.lower().endswith(".csv"):
+        raise HTTPException(
+            status_code=400,
+            detail="Only CSV files are allowed."
+        )
 
-    return retrain_model(dataframe)
+    try:
+        dataframe = pd.read_csv(file.file)
+
+        result = retrain_model(dataframe)
+
+        return result
+
+    except Exception as e:
+        raise HTTPException(
+            status_code=500,
+            detail=f"Retraining failed: {str(e)}"
+        )
