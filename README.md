@@ -20,6 +20,8 @@ The project combines:
 
 The goal is to help educators and students understand factors that influence academic performance while supporting a more personalized learning experience.
 
+**Youtube Walkthrough:**
+
 ---
 
 # Machine Learning Pipeline
