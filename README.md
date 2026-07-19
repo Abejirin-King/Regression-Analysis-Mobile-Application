@@ -1,99 +1,165 @@
-# EduPredict AI - Student Academic Performance Prediction
+# EduPredict AI – Student Academic Performance Prediction
 
 ## Mission and Problem Statement
 
-EduPredict AI supports the mission of providing education to young students without removing the fun in learning. The project predicts student academic performance using learning habits, academic history, and lifestyle factors. This helps identify factors affecting student outcomes and supports personalized educational interventions.
+**Mission:** Develop an AI-powered academic support system that predicts students' final examination scores based on their study habits, attendance, academic history, and lifestyle factors. The system enables educators and academic mentors to identify students who may require early intervention, allowing personalized support before final examinations.
+
+Student performance is influenced by multiple factors beyond classroom instruction. Study habits, attendance, previous academic achievement, sleep patterns, stress levels, and access to tutoring all contribute to examination outcomes. By accurately predicting exam scores, educational institutions can better understand these relationships and make data-driven decisions to improve student success.
 
 ---
 
 # Project Overview
 
-EduPredict AI is a machine learning application that predicts student exam performance using a multivariate linear regression model.
+EduPredict AI is a machine learning application that predicts student examination scores using regression algorithms implemented with Scikit-learn.
 
 The project combines:
 
-- Machine learning model development using Scikit-learn
-- Data preprocessing and feature engineering
-- Regression algorithm comparison
-- FastAPI backend deployment
+- Data exploration and visualization
+- Feature engineering and preprocessing
+- Multiple regression model comparison
+- Gradient descent optimization
+- FastAPI model deployment
 - Flutter mobile application integration
 
-The goal is to help educators and students understand factors that influence academic performance while supporting a more personalized learning experience.
+The objective is to build a complete machine learning pipeline from dataset preparation through deployment as a REST API and mobile application.
 
-**Youtube Walkthrough:**
+**YouTube Walkthrough:**
 
----
-
-# Machine Learning Pipeline
-
-The machine learning workflow includes:
-
-- Dataset exploration and visualization
-- Data cleaning and analysis
-- Feature selection and engineering
-- Conversion of categorical variables into numerical representations
-- Feature standardization
-- Training multiple regression algorithms
-- Model evaluation and comparison
-- Saving the best-performing model for deployment
-
-The regression algorithms compared were:
-
-- Linear Regression
-- Ridge Regression
-- Stochastic Gradient Descent Regression (SGDRegressor)
+*(Insert your video link here.)*
 
 ---
 
 # Dataset
 
-The model was trained using the Kaggle:
+**Dataset Name**
 
-**Student Habits and Academic Performance Dataset**
+Student Habits and Academic Performance Dataset
 
-The dataset contains student academic, behavioral, and lifestyle information.
+**Source**
 
-The target variable:
+https://www.kaggle.com/datasets/aryan208/student-habits-and-academic-performance-dataset
+
+### Dataset Description
+
+The dataset contains academic, behavioural, demographic, and lifestyle information collected from students. It includes factors such as attendance, study time, previous academic performance, sleep habits, stress levels, tutoring access, and learning preferences.
+
+The dataset is suitable for regression analysis because the target variable (`exam_score`) is continuous.
+
+### Target Variable
 
 ```
 exam_score
 ```
 
-Important features used by the model include:
+### Features Used
 
 - Age
 - Gender
 - Major
-- Study hours per day
-- Attendance percentage
-- Sleep hours
-- Part-time job status
+- Study Hours Per Day
+- Attendance Percentage
+- Sleep Hours
+- Part-Time Job
 - Previous GPA
-- Stress level
-- Access to tutoring
-- Exam anxiety score
-- Time management score
+- Stress Level
+- Access to Tutoring
+- Exam Anxiety Score
+- Time Management Score
 
 ---
 
-# Model Performance
+# Exploratory Data Analysis
 
-The models were evaluated using:
+Several visualizations were created to better understand the dataset before model training.
+
+The notebook includes:
+
+- Distribution of student exam scores
+- Correlation heatmap of numerical features
+- Study Hours vs Exam Score scatter plot
+- Attendance Percentage vs Exam Score scatter plot
+- Previous GPA vs Exam Score scatter plot
+- Exam Score by Learning Style boxplot
+
+These visualizations were used to identify influential variables and guide feature engineering decisions.
+
+---
+
+# Feature Engineering
+
+Before training the regression models, several preprocessing steps were performed.
+
+These include:
+
+- Removal of duplicate records
+- Removal of irrelevant columns (`student_id` and `dropout_risk`)
+- Selection of relevant predictive features
+- One-Hot Encoding of categorical variables
+- Standardization of numerical features using `StandardScaler`
+- Splitting the dataset into training and testing sets (80/20)
+
+These preprocessing steps improve model performance and ensure compatibility with machine learning algorithms.
+
+---
+
+# Machine Learning Models
+
+Four regression algorithms were implemented and compared.
+
+- Linear Regression
+- Decision Tree Regressor
+- Random Forest Regressor
+- Stochastic Gradient Descent Regressor (SGDRegressor)
+
+The SGDRegressor was further optimized using different learning-rate strategies and regularization values to satisfy the gradient descent optimization requirement.
+
+---
+
+# Model Evaluation
+
+The following evaluation metrics were used:
 
 - Mean Absolute Error (MAE)
 - Mean Squared Error (MSE)
 - Root Mean Squared Error (RMSE)
 - R² Score
 
-
 | Model | MAE | MSE | RMSE | R² Score |
-|---|---|---|---|---|
-| Linear Regression | 3.196905 | 17.549635 | 4.189228 | 0.870376 |
-| Ridge Regression | 3.196925 | 17.549648 | 4.189230 | 0.870376 |
-| SGD Regression | 3.248867 | 17.965636 | 4.238589 | 0.867303 |
+|------|------:|------:|------:|------:|
+| Linear Regression | *(Update from notebook)* | *(Update)* | *(Update)* | *(Update)* |
+| Decision Tree | *(Update from notebook)* | *(Update)* | *(Update)* | *(Update)* |
+| Random Forest | *(Update from notebook)* | *(Update)* | *(Update)* | *(Update)* |
+| SGD Regression | *(Update from notebook)* | *(Update)* | *(Update)* | *(Update)* |
 
+The model with the highest R² score and lowest prediction error was automatically selected and saved for deployment.
 
-The best-performing model was saved and used for API deployment.
+---
+
+# Gradient Descent Optimization
+
+The SGDRegressor model was optimized by experimenting with multiple learning-rate strategies:
+
+- Constant
+- Optimal
+- Adaptive
+
+Different regularization values (`alpha`) were also evaluated to identify the best-performing configuration.
+
+Training and testing loss curves were plotted across multiple epochs to visualize convergence during gradient descent.
+
+---
+
+# Model Persistence
+
+The following files are saved after training:
+
+```
+best_model.pkl
+scaler.pkl
+preprocessor.pkl
+```
+
+These files are loaded by the FastAPI application to generate predictions without retraining the model.
 
 ---
 
@@ -101,21 +167,21 @@ The best-performing model was saved and used for API deployment.
 
 The trained model is deployed using FastAPI.
 
-The public API endpoint can be accessed through Swagger UI:
+Swagger Documentation:
 
 ```
 https://regression-analysis-mobile-application.onrender.com/docs
 ```
 
-The Swagger interface allows testing of the prediction endpoint.
+*(Replace with your deployed URL if different.)*
 
 ---
 
-# Prediction Endpoint
+# API Endpoints
 
 ## POST `/predict`
 
-This endpoint receives student information and returns a predicted exam score.
+Predicts a student's examination score.
 
 Example request:
 
@@ -146,35 +212,74 @@ Example response:
 
 ---
 
+## POST `/retrain`
+
+Retrains the machine learning model using the latest available dataset.
+
+This endpoint allows the deployed model to be updated whenever new student data becomes available without manually rebuilding the project.
+
+---
+
+# CORS Configuration
+
+The API implements FastAPI's `CORSMiddleware` to control which applications are allowed to access the prediction service.
+
+### Allowed
+
+Only trusted frontend applications should be permitted, for example:
+
+- Flutter mobile application
+- Local development server
+- Swagger UI
+
+Allowed methods include:
+
+- GET
+- POST
+
+Allowed headers include:
+
+- Content-Type
+- Authorization
+
+Credentials are enabled only for trusted origins.
+
+### Restricted
+
+Unknown websites and unauthorized third-party applications are denied browser-based access.
+
+Using specific trusted origins instead of `allow_origins=["*"]` improves API security and reduces the risk of unauthorized cross-origin requests.
+
+---
+
 # Running the API Locally
 
 ## Requirements
 
-- Python
+- Python 3.11+
 - uv package manager
 
-
-Create the virtual environment:
+Create a virtual environment:
 
 ```bash
 uv venv
 ```
 
-Activate the environment.
+Activate it.
 
-For Git Bash:
+Git Bash:
 
 ```bash
 source .venv/Scripts/activate
 ```
 
-Install project dependencies:
+Install dependencies:
 
 ```bash
 uv sync
 ```
 
-Run FastAPI:
+Run the server:
 
 ```bash
 uvicorn summative.API.main:app --reload
@@ -188,88 +293,24 @@ http://127.0.0.1:8000/docs
 
 ---
 
-# Mobile Application Setup
+# Flutter Mobile Application
 
-The mobile application was developed using Flutter.
+The Flutter application consumes the deployed FastAPI prediction endpoint.
 
-## Requirements
+Features include:
 
-Install:
+- Input fields for all prediction variables
+- Predict button
+- Display of predicted examination score
+- Validation error messages
+- Clean single-page interface
 
-- Flutter SDK
-- Dart SDK
-- Android Studio or Android emulator
-
-
-Navigate to the Flutter application folder:
-
-```bash
-cd FlutterApp
-```
-
-Install Flutter dependencies:
+Run:
 
 ```bash
 flutter pub get
-```
-
-Run the application:
-
-```bash
 flutter run
 ```
-
----
-
-# Mobile Application Features
-
-The application provides:
-
-- Student performance prediction page
-- Input fields matching the API requirements
-- Prediction button
-- Prediction result display
-- Error handling for invalid inputs
-- Reset functionality for making new predictions
-
-The application communicates with the deployed FastAPI backend to generate predictions.
-
----
-
-# CORS Configuration
-
-Cross-Origin Resource Sharing (CORS) allows applications hosted on different domains to communicate with the API.
-
-The API uses CORS middleware to control which applications can access the prediction service.
-
-During development:
-
-```python
-allow_origins=["*"]
-```
-
-is used to allow requests from any origin. This makes testing easier with:
-
-- Swagger UI
-- Flutter application
-
-
-## Allowed
-
-- Flutter application requests
-- Swagger UI testing
-
-
-## Restricted
-
-In production, unrestricted access should be replaced with trusted frontend domains only.
-
-Restrictions include:
-
-- Unknown websites
-- Unauthorized third-party applications
-
-This reduces unauthorized access to the API.
 
 ---
 
@@ -279,47 +320,55 @@ This reduces unauthorized access to the API.
 linear_regression_model/
 
 ├── summative/
-
-│   ├── linear_regression/
-
-│   │   ├── multivariate.ipynb
-│   │   ├── models/
-│   │       ├── best_model.pkl
-│   │       ├── scaler.pkl
-│   │       └── preprocessor.pkl
-
-│   ├── API/
-
-│   │   ├── main.py
-│   │   ├── prediction.py
-│   │   ├── schemas.py
-│   │   └── test_prediction.py
-
-│   ├── FlutterApp/
-
+│
+├── linear_regression/
+│   ├── multivariate.ipynb
+│   └── models/
+│       ├── best_model.pkl
+│       ├── scaler.pkl
+│       └── preprocessor.pkl
+│
+├── API/
+│   ├── main.py
+│   ├── prediction.py
+│   ├── schemas.py
+│   ├── retrain.py
+│   └── test_prediction.py
+│
+├── FlutterApp/
+│
 ├── pyproject.toml
-
+├── requirements.txt
 ├── uv.lock
-
 └── README.md
 ```
 
 ---
 
-# Development Note
+# Technologies Used
 
-To avoid conflicts when working with Git, always pull the latest changes before starting development:
+- Python
+- Pandas
+- NumPy
+- Matplotlib
+- Seaborn
+- Scikit-learn
+- Joblib
+- FastAPI
+- Pydantic
+- Uvicorn
+- Flutter
+- Dart
 
-```bash
-git pull origin main
-```
+---
 
-Commit changes regularly with clear messages describing the completed work.
+# Future Improvements
 
-Example:
+Potential future enhancements include:
 
-```bash
-git add .
-git commit -m "Describe completed feature"
-git push origin main
-```
+- Automatic retraining using streamed student data
+- Model versioning
+- Hyperparameter tuning using GridSearchCV
+- Advanced ensemble regression methods
+- Interactive analytics dashboard for educators
+- Support for multiple educational institutions
