@@ -169,13 +169,7 @@ The trained model is deployed using FastAPI.
 
 Swagger Documentation:
 
-```
 https://regression-analysis-mobile-application.onrender.com/docs
-```
-
-*(Replace with your deployed URL if different.)*
-
----
 
 # API Endpoints
 
