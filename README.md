@@ -126,12 +126,12 @@ The following evaluation metrics were used:
 
 | Model | MAE | MSE | RMSE | R² Score |
 |------|------:|------:|------:|------:|
-| Linear Regression | *(Update from notebook)* | *(Update)* | *(Update)* | *(Update)* |
-| Decision Tree | *(Update from notebook)* | *(Update)* | *(Update)* | *(Update)* |
-| Random Forest | *(Update from notebook)* | *(Update)* | *(Update)* | *(Update)* |
-| SGD Regression | *(Update from notebook)* | *(Update)* | *(Update)* | *(Update)* |
+| Linear Regression | 3.195970 | 17.539389 | 4.188005 | 0.870451 |
+| Decision Tree | 4.498687 | 36.292063 | 6.024289 | 0.731941 |
+| Random Forest | 3.314034 | 17.935277 | 4.235006 | 0.867527 |
+| SGD Regression | 3.206632 | 17.741975 | 4.212122 | 0.868955 |
 
-The model with the highest R² score and lowest prediction error was automatically selected and saved for deployment.
+Linear Regression Model, the model with the highest R² score and lowest prediction error was automatically selected and saved for deployment.
 
 ---
 
